@@ -1,0 +1,60 @@
+var romanOnes = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+var romanTens = ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
+var romanHundreds = ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM'];
+
+function convertToRoman(num) {
+ console.log('The converted number is:' + num);
+ var numberArray = createArray(num);
+ var romanArray = convertRoman(numberArray);
+ return romanArray.reverse().join(''); 
+}
+
+function createArray(num) {
+ //Creates an Array with at most 4 elements in this order: thousands, hundreds, tens, ones
+ var result = [];
+ var numLength = Array.from(num.toString()).length;
+ for (var i = 1; i <= numLength; i++) {
+   if (i <= 3) {
+     var figure = num % 10;
+     num = Math.floor(num/10);
+     result.push(figure);
+   } else {
+     result.push(num);
+     break;
+   }
+ }
+  return result;
+}
+
+function convertRoman(numberArray) {
+  //Converts ones, tens, hundreds and thousands in an array to Roman numerals 
+  for (var i = 0; i < numberArray.length; i++) {
+   switch (i) {
+     case 0:
+       numberArray[i] = romanOnes[numberArray[i]];
+       break;
+     case 1:
+       numberArray[i] = romanTens[numberArray[i]];
+       break;
+     case 2:
+       numberArray[i] = romanHundreds[numberArray[i]];
+       break;
+     default:
+       numberArray[i] = getThousands(numberArray[i]);
+   }
+ }
+  return numberArray;
+}
+
+
+function getThousands(thousands) {
+ //Creates a Roman numeral string based on the number of thousands (eg: 3 = 'MMM')
+ var romanThou = '';
+ for (var i = 1; i <= thousands; i++) {
+   romanThou += 'M';
+ } 
+ console.log('romanThou = ', romanThou); 
+ return romanThou;
+}
+
+convertToRoman(4889);
