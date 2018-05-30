@@ -1,0 +1,29 @@
+function keepCasing (oldWord, newWord) {
+  var properCasing = '';
+  for (var i = 0; i < newWord.length; i++) {
+    if (i < oldWord.length && oldWord[i] === oldWord[i].toUpperCase()) {
+      properCasing += newWord[i].toUpperCase();
+    } 
+    else {
+      properCasing += newWord[i].toLowerCase();
+    }
+  }
+  
+  return properCasing;
+}
+ 
+function myReplace(str, before, after) {
+  var wordArray = str.split(" ");
+  for (var i = 0; i < wordArray.length; i++) {
+    if (wordArray[i].toLowerCase() === before.toLowerCase()) {
+      after = keepCasing(wordArray[i], after);
+      wordArray[i] = after;
+    }
+  }
+  
+  str = wordArray.join(' '); 
+  return str;
+}
+
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+
